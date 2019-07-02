@@ -6,15 +6,45 @@
 
 package tugaspbo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Adams
  */
 public class Kelas extends javax.swing.JFrame {
 
-    /** Creates new form Kelas */
+    Connection con;
+    Statement stat;
+    ResultSet rs;
+    String sql;
+    
     public Kelas() {
         initComponents();
+        //pemanggilan fungsi koneksi database yang sudah kita buat pada class koneksi.java
+        koneksi DB = new koneksi();
+        DB.config();
+        con = DB.con;
+        stat = DB.stm;
+    }
+    public void getData( ){
+        try {
+            sql = "SELECT * FROM admin where status= 1";
+            rs = stat.executeQuery(sql);
+            
+            nama_kelas.setText(rs.getString("nama"));
+            npm_kelas.setText(rs.getString("npm"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Kelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /** This method is called from within the constructor to
@@ -29,15 +59,15 @@ public class Kelas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        nama_kelas = new javax.swing.JLabel();
+        npm_kelas = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
+        jComboBox3 = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,9 +77,14 @@ public class Kelas extends javax.swing.JFrame {
 
         jLabel3.setText("NPM  : ");
 
-        jLabel4.setText("nama");
+        nama_kelas.setText("Mahasiswa1");
+        nama_kelas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nama_kelasKeyPressed(evt);
+            }
+        });
 
-        jLabel5.setText("npm");
+        npm_kelas.setText("56417099");
 
         jLabel6.setText("Pilih Kelas : ");
 
@@ -62,11 +97,11 @@ public class Kelas extends javax.swing.JFrame {
         jRadioButton3.setText("Sistem Basis Data");
         jRadioButton3.setActionCommand("");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00 - 10:00 ", "11:00 - 12:00", "14:00 - 16:00", "18:00 - 19:00" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,8 +133,8 @@ public class Kelas extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(nama_kelas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(npm_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel6))))
                 .addGap(31, 31, 31))
         );
@@ -111,11 +146,11 @@ public class Kelas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(nama_kelas))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel5))
+                    .addComponent(npm_kelas))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
@@ -135,6 +170,10 @@ public class Kelas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nama_kelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nama_kelasKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama_kelasKeyPressed
 
     /**
      * @param args the command line arguments
@@ -178,12 +217,16 @@ public class Kelas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JLabel nama_kelas;
+    private javax.swing.JLabel npm_kelas;
     // End of variables declaration//GEN-END:variables
+
+    private void nama_kelas(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

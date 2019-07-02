@@ -54,8 +54,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel4" max="32767" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" pref="191" max="-2" attributes="0"/>
+                                  <Component id="nama_kelas" max="32767" attributes="0"/>
+                                  <Component id="npm_kelas" min="-2" pref="191" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -74,12 +74,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nama_kelas" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="npm_kelas" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -119,14 +119,17 @@
         <Property name="text" type="java.lang.String" value="NPM  : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="nama_kelas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="nama"/>
+        <Property name="text" type="java.lang.String" value="Mahasiswa1"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nama_kelasKeyPressed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="npm_kelas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="npm"/>
+        <Property name="text" type="java.lang.String" value="56417099"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
